@@ -91,4 +91,7 @@ export default function App() {
 App.propType = {
   searchValue: PropTypes.string,
   onSubmitSerach: PropTypes.func,
+  page: PropTypes.number,
+  loading: PropTypes.bool,
+  totalPictures: PropTypes.number,
 };
