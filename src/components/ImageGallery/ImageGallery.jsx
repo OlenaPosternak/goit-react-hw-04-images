@@ -13,14 +13,14 @@ export default function ImageGallery({ galleryName }) {
   const [loading, setLoading] = useState(false);
   const [totalPictures, setTotalPictures] = useState(1);
 
-  useEffect(() => {setData([])}, [galleryName]);
-  useEffect(() => {setPage(1)}, [galleryName]);
-
-
-
+  useEffect(() => {
+    setData([]);
+  }, [galleryName]);
+  useEffect(() => {
+    setPage(1);
+  }, [galleryName]);
 
   useEffect(() => {
-
     // якщо немає слова для пошуку, то запит не робимо
     if (galleryName === '') {
       return;
@@ -28,7 +28,7 @@ export default function ImageGallery({ galleryName }) {
 
     setLoading(true);
 
-    async function fetchUrl(galleryName, page=1) {
+    async function fetchUrl(galleryName, page = 1) {
       const controller = new AbortController();
 
       try {
@@ -47,7 +47,6 @@ export default function ImageGallery({ galleryName }) {
 
         setData(prevState => [...prevState, ...responce.data.hits]);
         setTotalPictures(responce.data.totalHits);
-
       } catch (error) {
         console.log(error);
       } finally {
@@ -60,18 +59,11 @@ export default function ImageGallery({ galleryName }) {
     fetchUrl(galleryName, page);
 
     console.log(`1`);
-
-
-
   }, [page, galleryName]);
 
-
-
- const  loadMore =()=> {
+  const loadMore = () => {
     setPage(prevState => prevState + 1);
-  }
-
-  
+  };
 
   return (
     <>
@@ -88,9 +80,7 @@ export default function ImageGallery({ galleryName }) {
       {loading && <Loader />}
 
       {data.length !== 0 && Math.floor(totalPictures / 12) > page && (
-        <ButtonMore
-          onClick={loadMore}
-        />
+        <ButtonMore onClick={loadMore} />
       )}
     </>
   );
