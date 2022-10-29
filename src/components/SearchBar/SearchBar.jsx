@@ -32,8 +32,7 @@ export default function SearchBar({ onSearch }) {
     }
 
     onSearch(searchValue);
-    // setSearchValue('');
-    // reset();
+    reset();
   };
 
   return (

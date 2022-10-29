@@ -16,6 +16,9 @@ export default function ImageGallery({ galleryName }) {
   useEffect(() => {setData([])}, [galleryName]);
   useEffect(() => {setPage(1)}, [galleryName]);
 
+
+
+
   useEffect(() => {
 
     // якщо немає слова для пошуку, то запит не робимо
@@ -26,7 +29,7 @@ export default function ImageGallery({ galleryName }) {
     setLoading(true);
 
     async function fetchUrl(galleryName, page=1) {
-    //   const controller = new AbortController();
+      const controller = new AbortController();
 
       try {
         const responce = await axios.get('https://pixabay.com/api/', {
@@ -38,7 +41,7 @@ export default function ImageGallery({ galleryName }) {
             orientation: `horizontal`,
             per_page: 12,
 
-            // signal: controller.signal,
+            signal: controller.signal,
           },
         });
 
@@ -50,16 +53,19 @@ export default function ImageGallery({ galleryName }) {
       } finally {
         setLoading(false);
       }
-    //   return () => {
-    //     controller.abort();
-    //   };
+      return () => {
+        controller.abort();
+      };
     }
     fetchUrl(galleryName, page);
 
     console.log(`1`);
 
 
+
   }, [page, galleryName]);
+
+
 
  const  loadMore =()=> {
     setPage(prevState => prevState + 1);
