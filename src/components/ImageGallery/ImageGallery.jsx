@@ -13,6 +13,7 @@ export default function ImageGallery({ galleryName }) {
   const [loading, setLoading] = useState(false);
   const [totalPictures, setTotalPictures] = useState(1);
 
+
 //   якщо змінилось слово дл пошуку, то робимо пустий масив і сторінку скидаємо до 1
   useEffect(() => {setData([])}, [galleryName]);
   useEffect(() => {setPage(1)}, [galleryName]);
