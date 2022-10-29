@@ -14,12 +14,8 @@ export default function ImageGallery({ galleryName }) {
   const [totalPictures, setTotalPictures] = useState(1);
 
 //   якщо змінилось слово дл пошуку, то робимо пустий масив і сторінку скидаємо до 1
-  useEffect(() => {
-    setData([]);
-  }, [galleryName]);
-  useEffect(() => {
-    setPage(1);
-  }, [galleryName]);
+  useEffect(() => {setData([])}, [galleryName]);
+  useEffect(() => {setPage(1)}, [galleryName]);
 
   useEffect(() => {
     // якщо немає слова для пошуку, то запит не робимо
