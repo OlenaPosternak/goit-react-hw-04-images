@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import { useState, useEffect } from 'react';
-import  Item  from '../ImageGalleryItem/ImageGalleryItem';
+import Item from '../ImageGalleryItem/ImageGalleryItem';
 import { AllGallery } from './ImageGallery.mudule';
 import { Loader } from '../Loader/Loader';
 import { ButtonMore } from '../Button/Button';
@@ -13,23 +13,21 @@ export default function ImageGallery({ galleryName }) {
   const [loading, setLoading] = useState(false);
   const [totalPictures, setTotalPictures] = useState(1);
 
-  useEffect(() => {
-    setPage(1);
-  }, [galleryName]);
-  useEffect(() => {
-    setData([]);
-  }, [galleryName]);
+  useEffect(() => {setData([])}, [galleryName]);
+  useEffect(() => {setPage(1)}, [galleryName]);
 
   useEffect(() => {
+
     // якщо немає слова для пошуку, то запит не робимо
     if (galleryName === '') {
       return;
     }
-    const controller = new AbortController();
 
     setLoading(true);
 
-    async function fetchUrl(galleryName, page) {
+    async function fetchUrl(galleryName, page=1) {
+    //   const controller = new AbortController();
+
       try {
         const responce = await axios.get('https://pixabay.com/api/', {
           params: {
@@ -39,26 +37,35 @@ export default function ImageGallery({ galleryName }) {
             image_type: `photo`,
             orientation: `horizontal`,
             per_page: 12,
-            signal: controller.signal,
+
+            // signal: controller.signal,
           },
         });
+
         setData(prevState => [...prevState, ...responce.data.hits]);
         setTotalPictures(responce.data.totalHits);
+
       } catch (error) {
         console.log(error);
       } finally {
         setLoading(false);
       }
+    //   return () => {
+    //     controller.abort();
+    //   };
     }
     fetchUrl(galleryName, page);
-    return()=>{
-        controller.abort()
-    }
+
+    console.log(`1`);
+
+
   }, [page, galleryName]);
 
-  function loadMore() {
+ const  loadMore =()=> {
     setPage(prevState => prevState + 1);
   }
+
+  
 
   return (
     <>
@@ -76,9 +83,7 @@ export default function ImageGallery({ galleryName }) {
 
       {data.length !== 0 && Math.floor(totalPictures / 12) > page && (
         <ButtonMore
-          onClic={() => {
-            loadMore();
-          }}
+          onClick={loadMore}
         />
       )}
     </>
