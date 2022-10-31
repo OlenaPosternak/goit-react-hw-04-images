@@ -13,13 +13,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function App() {
-
   const [searchValue, setSearchValue] = useState('');
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [totalPictures, setTotalPictures] = useState(1);
-
 
   console.log(searchValue);
 
@@ -60,13 +58,11 @@ export default function App() {
       };
     }
     fetchUrl(searchValue, page);
-
   }, [page, searchValue]);
 
   const loadMore = () => {
-    setPage(prevState=>prevState+1);
+    setPage(prevState => prevState + 1);
   };
-
 
   const onSubmitSerach = searchInfo => {
     setSearchValue(searchInfo);
@@ -76,7 +72,7 @@ export default function App() {
 
   return (
     <AppStyled>
-      <SearchBar onSearch={onSubmitSerach}  />
+      <SearchBar onSearch={onSubmitSerach} />
       <ImageGallery galleryName={searchValue} data={data} />
       {loading && <Loader />}
 

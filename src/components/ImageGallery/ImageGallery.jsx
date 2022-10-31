@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Item from '../ImageGalleryItem/ImageGalleryItem';
 import { AllGallery } from './ImageGallery.mudule';
 
-export default function ImageGallery({data}) {
+export default function ImageGallery({ data }) {
   return (
     <>
       <AllGallery>
@@ -15,7 +15,6 @@ export default function ImageGallery({data}) {
           />
         ))}
       </AllGallery>
-      
     </>
   );
 }

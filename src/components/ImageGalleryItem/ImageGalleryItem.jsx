@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import { ImageGalleryItem, ItemImage } from './ImageGalleryItem.module';
-import Modal  from '../Modal/Modal';
+import Modal from '../Modal/Modal';
 
 import { useState } from 'react';
 
